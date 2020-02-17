@@ -1,0 +1,85 @@
+Задание 1. 
+Создал файл .my.cnf и подключился к БД без указания логина и пароля:
+[mysql]
+user=root
+password=xxxxx
+
+root@f3a0c9b96fa8:/# mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+Задание 2.
+Создал базу example, в ней создал таблицу users с 2 полями - id(числовое) и name(текстовое)
+mysql> CREATE DATABASE example
+    -> ;
+Query OK, 1 row affected (0.04 sec)
+
+mysql>
+mysql> use example;
+Database changed
+mysql>
+mysql> create table users()
+    -> ^C
+mysql> create table users(
+    -> id INT,
+    -> name CHAR
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> 
+
+mysql> exit
+Bye
+
+Задание 3.
+Сделал дамп базы example и развернул ее в sample
+root@f3a0c9b96fa8:/# mysqldump example > example.sql
+root@f3a0c9b96fa8:/# ls -la | grep example.sql
+-rw-r--r--   1 root root 1815 Feb 17 19:30 example.sql
+root@f3a0c9b96fa8:/#
+
+mysql> create database sample;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> exit
+Bye
+root@f3a0c9b96fa8:/# mysql sample < example.sql
+root@f3a0c9b96fa8:/# mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 45
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use database sample;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use sample;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_sample |
++------------------+
+| users            |
++------------------+
+1 row in set (0.00 sec)
+
+mysql>
